@@ -24,7 +24,7 @@ pipeline {
 		}
 		stage('Package') {
 			steps {
-				echo 'mvn package -DskipTests'
+				sh 'mvn package -DskipTests'
 			}
 		}
 		stage('Build Docker Image'){
