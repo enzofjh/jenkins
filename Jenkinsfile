@@ -17,9 +17,9 @@ pipeline {
 		}
 		stage('Compile') {
 			steps {
-				sh('mvn clean compile')
-				sh('mvn test')
-				sh('mvn failsafe:integration-test failsafe:verify')
+				sh 'mvn clean compile'
+				sh 'mvn test'
+				sh 'mvn failsafe:integration-test failsafe:verify'
 			}
 		}
 		stage('Package') {
