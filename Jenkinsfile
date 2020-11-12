@@ -15,9 +15,11 @@ pipeline {
 				echo 'Build'
 			}
 		}
-		stage('Test') {
+		stage('Compile') {
 			steps {
-				echo 'Test'
+				sh('mvn clean compile')
+				sh('mvn test')
+				sh('mvn failsafe:integration-test failsafe:verify')
 			}
 		}
 		stage('Package') {
