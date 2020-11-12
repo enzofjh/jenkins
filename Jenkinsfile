@@ -20,9 +20,26 @@ pipeline {
 				echo 'Test'
 			}
 		}
-		stage('Integration') {
+		stage('Package') {
 			steps {
-				echo 'Integration'
+				echo 'mvn package -DskipTests'
+			}
+		}
+		stage('Build Docker Image'){
+			steps {
+				script {
+					dockerImage = docker.build("enzojimenez/currency-exchange-devops:${env.BUILD_TAG}")
+				}
+			}
+		}
+		stage('Push Docker Image'){
+			steps {
+				script {
+					docker.withRegistry('','dockerhub'){
+						dockerImage.push()
+						dockerImage.push('latest')
+					}
+				}
 			}
 		}
 	}
